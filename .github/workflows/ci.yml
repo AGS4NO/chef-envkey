@@ -1,0 +1,93 @@
+---
+name: CI
+
+'on':
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  cookstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Chef
+        uses: actionshub/chef-install@main
+      - name: Run Cookstyle
+        run: chef exec cookstyle --display-cop-names --extra-details
+        env:
+          CHEF_LICENSE: accept-no-persist
+
+  mdl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Markdown Linter
+        uses: actionshub/markdownlint@main
+
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run YAML Linter
+        uses: actionshub/yamllint@main
+
+  rspec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Chef
+        uses: actionshub/chef-install@main
+      - name: Install Gems
+        run: chef gem install -N "${{ inputs.gems }}"
+        if: ${{ inputs.gems }} != ""
+        env:
+          CHEF_LICENSE: accept-no-persist
+      - name: Run RSpec
+        run: chef exec rspec -f j
+        env:
+          CHEF_LICENSE: accept-no-persist
+
+  integration:
+    needs:
+      - cookstyle
+      - mdl
+      - yamllint
+      - rspec
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - 'debian-10'
+          - 'debian-11'
+          - 'rockylinux-8'
+          - 'ubuntu-2004'
+          - 'ubuntu-2204'
+        suite:
+          - 'default'
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Chef
+        uses: actionshub/chef-install@main
+      - name: Run Test Kitchen
+        uses: actionshub/test-kitchen@main
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.yml
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+      - name: Print debug output on failure
+        if: failure()
+        run: |
+            set -x
+            sudo journalctl -l --since today
+            KITCHEN_LOCAL_YAML=kitchen.yml /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
