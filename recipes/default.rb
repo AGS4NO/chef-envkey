@@ -2,7 +2,7 @@
 # Cookbook:: envkey
 # Recipe:: default
 #
-# Copyright:: 2022, Stephen Nelson <AGS4NO@pm.me>
+# Copyright:: 2023, Stephen Nelson <AGS4NO@pm.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

@@ -1,14 +1,14 @@
 ---
 driver:
-  chef_license: accept-no-persist
-  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
-  deprecations_as_errors: true
-  image_prefix: envkey
   name: dokken
+  image_prefix: envkey
   privileged: true  # allows systemd services to start
 
 provisioner:
   name: dokken
+  chef_license: accept-no-persist
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  deprecations_as_errors: true
   slow_resource_report: true
 
 transport:

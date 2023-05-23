@@ -1,9 +1,11 @@
 name 'envkey'
 chef_version '>= 16.0'
-description 'Install envkey-source and provides access to envkey variables'
+description 'Installs envkey-source and provides access to envkey variables and secrets'
 issues_url 'https://github.com/AGS4NO/chef-envkey/issues'
 license 'Apache-2.0'
 maintainer 'Stephen Nelson'
 maintainer_email 'AGS4NO@pm.me'
 source_url 'https://github.com/AGS4NO/chef-envkey'
 version '0.1.0'
+
+gem 'envkey'

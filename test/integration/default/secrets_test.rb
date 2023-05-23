@@ -15,16 +15,18 @@ control 'secrets' do
 
   describe file('/opt/chef-envkey/application.dot-env') do
     it { should exist }
-    its('content') { should match(/ENVKEY_TEST_VARIABLE='ENVKEY_TEST_SECRET'/) }
+    its('content') { should match(/VARIABLE_A='SECRET_A'\nVARIABLE_B='SECRET_B'\nVARIABLE_BLOCK='SECRET_BLOCK'\n\n/) }
   end
 
   describe json('/opt/chef-envkey/application.json') do
-    its('ENVKEY_TEST_VARIABLE') { should eq 'ENVKEY_TEST_SECRET' }
+    its('VARIABLE_A') { should eq 'SECRET_A' }
+    its('VARIABLE_B') { should eq 'SECRET_B' }
+    its('VARIABLE_BLOCK') { should eq 'SECRET_BLOCK' }
   end
 
   describe file('/opt/chef-envkey/application.pam') do
     it { should exist }
-    its('content') { should match(/ENVKEY_TEST_VARIABLE='ENVKEY_TEST_SECRET'/) }
+    its('content') { should match(/export VARIABLE_A='SECRET_A'\nexport VARIABLE_B='SECRET_B'\nexport VARIABLE_BLOCK='SECRET_BLOCK'\n/) }
   end
 
   describe file('/opt/chef-envkey/application.secret') do
