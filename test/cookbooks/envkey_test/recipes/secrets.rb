@@ -4,7 +4,10 @@
 #
 
 # Get the ENVKEY token for the applcation named 'chef-envkey' from a vault item.
-envkey_token = chef_vault_item('envkey', 'keys')[node.policy_group]['chef-envkey']
+# envkey_token = chef_vault_item('envkey', 'keys')[node.policy_group]['chef-envkey']
+
+# Get the ENVKEY token for the applcation named 'chef-envkey' from an attribute.
+envkey_token = node['envkey']['token']
 
 # Create an application directory
 directory '/opt/chef-envkey'

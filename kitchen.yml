@@ -47,6 +47,9 @@ platforms:
 
 suites:
   - name: default
+    attributes:
+      envkey:
+        token: <%= ENV['ENVKEY'] %>
     # Set the data bags path for testing
     data_bags_path: 'test/integration/default/data_bags'
     verifier:
