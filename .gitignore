@@ -25,5 +25,8 @@ Policyfile.lock.json
 
 test/integration/default/data_bags/envkey/keys.json
 Rakefile
+
+# Credentials
 .envkey
+.envrc
 

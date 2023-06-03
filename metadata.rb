@@ -1,6 +1,6 @@
 name 'envkey'
 chef_version '>= 16.0'
-description 'Installs envkey-source and provides access to envkey variables and secrets'
+description 'EnvKey secret configuration and management'
 issues_url 'https://github.com/AGS4NO/chef-envkey/issues'
 license 'Apache-2.0'
 maintainer 'Stephen Nelson'

@@ -14,7 +14,7 @@ This cookbook provides resources to install and interact with [EnvKey](https://w
 
 - Debian 10/11
 - Ubuntu 20.04/22.04
-- CentOS 8
+- Rocky 8
 
 ## Usage
 
