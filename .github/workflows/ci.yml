@@ -6,6 +6,11 @@ name: CI
   push:
     branches:
       - main
+  workflow_dispatch:
+
+  concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
   cookstyle:
@@ -82,6 +87,7 @@ jobs:
         uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
+          ENVKEY: ${{ secrets.ENVKEY }}
           KITCHEN_LOCAL_YAML: kitchen.yml
         with:
           suite: ${{ matrix.suite }}
