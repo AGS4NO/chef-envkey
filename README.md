@@ -1,5 +1,7 @@
 # EnvKey Cookbook
 
+[![CI](https://github.com/AGS4NO/chef-envkey/actions/workflows/ci.yml/badge.svg)](https://github.com/AGS4NO/chef-envkey/actions/workflows/ci.yml)
+
 The EnvKey Cookbook provides resources for installing envkey as well as pulling and managing secret configurations on system.
 
 ## Scope
