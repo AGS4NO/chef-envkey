@@ -6,12 +6,6 @@ name: CI
   push:
     branches:
       - main
-  workflow_call:
-    inputs:
-      gems:
-        required: false
-        type: string
-        default: "envkey"
 
 jobs:
   cookstyle:
@@ -52,8 +46,7 @@ jobs:
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Install Gems
-        run: chef gem install -N "${{ inputs.gems }}"
-        if: ${{ inputs.gems }} != ""
+        run: chef gem install -N "envkey"
         env:
           CHEF_LICENSE: accept-no-persist
       - name: Run RSpec
