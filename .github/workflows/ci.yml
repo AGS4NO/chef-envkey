@@ -26,13 +26,15 @@ jobs:
         env:
           CHEF_LICENSE: accept-no-persist
 
-  mdl:
+  markdownlint-cli2:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Check out code
         uses: actions/checkout@v3
-      - name: Run Markdown Linter
-        uses: actionshub/markdownlint@main
+      - name: Run Markdown Lint
+        uses: DavidAnson/markdownlint-cli2-action@v10
+        with:
+          globs: "**/*.md"
 
   yamllint:
     runs-on: ubuntu-latest
