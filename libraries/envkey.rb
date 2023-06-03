@@ -41,11 +41,12 @@ class Chef
   class SecretFetcher
     class Envkey < Base
       def do_fetch(identifier, _version)
-        client_version = Chef::Node.run_context.cookbook_collection['envkey'].metadata.version
+        # TODO: Set the client version from cookbook metadata
+        # client_version = Chef::Node.run_context.cookbook_collection['envkey'].metadata.version
         fetch_env_request = Mixlib::ShellOut.new(
             "#{FETCH_ENV_PATH} \
             --client-name chef-envkey \
-            --client-version #{client_version} \
+            --client-version '0.1.0' \
             --json 2>&1",
           environment: { 'ENVKEY': config['envkey'] })
 
