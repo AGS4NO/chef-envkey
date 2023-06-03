@@ -64,7 +64,7 @@ jobs:
   integration:
     needs:
       - cookstyle
-      - mdl
+      - markdownlint-cli2
       - yamllint
       - rspec
     runs-on: ubuntu-latest
