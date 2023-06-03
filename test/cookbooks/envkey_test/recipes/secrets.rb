@@ -43,7 +43,7 @@ file '/opt/chef-envkey/application.secret' do
 end
 
 # Create a fetcher object for gathering secrets
-fetcher = EnvkeySecretFetcher.for_service(:envkey, { 'envkey' => envkey_token }, run_context )
+fetcher = EnvkeySecretFetcher.for_service(:envkey, { 'envkey' => envkey_token }, run_context)
 
 # Write application secrets using the fetcher object.
 file '/opt/chef-envkey/application.secret_fetcher' do
