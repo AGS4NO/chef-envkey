@@ -32,24 +32,10 @@ class Chef
   #
   # This initial iteration authenticates via the ENVKEY token.
   #
-  # Validation of required configuration (vault name) is not performed until
-  # `fetch` time, to allow for embedding the vault name in with the secret
-  # name, such as "my_vault/secretkey1".
-  #
   # @example
   #
-  # fetcher = SecretFetcher.for_service(:azure_key_vault, { vault: "my_vault" }, run_context)
-  # fetcher.fetch("secretkey1", "v1")
-  #
-  # @example
-  #
-  # fetcher = SecretFetcher.for_service(:azure_key_vault, {}, run_context)
-  # fetcher.fetch("my_vault/secretkey1", "v1")
-  #
-  # @example
-  #
-  # fetcher = SecretFetcher.for_service(:azure_key_vault, { client_id: "540d76b6-7f76-456c-b68b-ccae4dc9d99d" }, run_context)
-  # fetcher.fetch("my_vault/secretkey1", "v1")
+  # fetcher = EnvkeySecretFetcher.for_service(:envkey, { 'envkey' => envkey_token }, run_context )
+  # fetcher.fetch('VARIABLE')
   #
   FETCH_ENV_PATH = Envkey::Platform.fetch_env_path.freeze
   class SecretFetcher
@@ -58,7 +44,7 @@ class Chef
         fetch_env_request = Mixlib::ShellOut.new(
             "#{FETCH_ENV_PATH} \
             --client-name chef-envkey \
-            --client-version '0.1.0' \
+            --client-version #{node.run_context.cookbook_collection['envkey'].metadata.version} \
             --json 2>&1",
           environment: { 'ENVKEY': config['envkey'] })
 

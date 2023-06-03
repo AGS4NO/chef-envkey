@@ -22,9 +22,8 @@ class Chef
   class EnvkeySecretFetcher
     SECRET_FETCHERS = %i(envkey).freeze
 
-    # Returns a configured and validated instance
-    # of a [Chef::SecretFetcher::Base] for the Envkey
-    # service and configuration.
+    # Returns a configured and validated instance of a 
+    # [Chef::SecretFetcher::Base] for the Envkey service and configuration.
     #
     # @param service [Symbol] the identifier for the service that will support this request. 
     # Must be in SECRET_FETCHERS
